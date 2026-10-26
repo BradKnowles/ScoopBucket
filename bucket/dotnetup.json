@@ -13,7 +13,8 @@
             "hash": "sha512:1233d4910c01889cadab9159bc0f2d8c2353fd7f7627bc0d176f4f04fc9fadf0ee1775d010f0e9a90f4a64c7901adb1b1b76439781b0875641134a9453212319"
         }
     },
-    "bin": "dotnetup.exe",
+    "post_install": "shim \"$(versiondir $app $version $global)\\dotnetup.exe\" $global 'dotnetup'",
+    "pre_uninstall": "rm_shim 'dotnetup' (shimdir $global) $app",
     "checkver": {
         "script": [
             "$r = (Invoke-WebRequest -Uri 'https://aka.ms/dotnet/dotnetup/preview/dotnetup-win-x64.exe' -Method Head -UseBasicParsing).BaseResponse",
